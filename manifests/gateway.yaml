@@ -20,6 +20,7 @@ spec:
   - allowedRoutes:
       namespaces:
         from: All
+    hostname: https.br0.no
     name: https
     port: 443
     protocol: HTTPS
