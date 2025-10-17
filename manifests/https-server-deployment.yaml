@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: https-server
+  namespace: default
+  labels:
+    app: https-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: https-server
+  template:
+    metadata:
+      labels:
+        app: https-server
+    spec:
+      containers:
+      - name: https-server
+        image: ghcr.io/haahaakon/backendtlspolicy-app/https-server
+        ports:
+        - containerPort: 8888
+          name: https
+          protocol: TCP
+        env:
+        - name: TLS_CERT_FILE
+          value: "/etc/tls/tls.crt"
+        - name: TLS_KEY_FILE
+          value: "/etc/tls/tls.key"
+        volumeMounts:
+        - name: tls-certs
+          mountPath: /etc/tls
+          readOnly: true
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8888
+            scheme: HTTPS
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8888
+            scheme: HTTPS
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: tls-certs
+        secret:
+          secretName: https-server-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: https-server
+  namespace: default
+  labels:
+    app: https-server
+spec:
+  type: ClusterIP
+  ports:
+  - port: 443
+    targetPort: 8888
+    protocol: TCP
+    name: https
+  selector:
+    app: https-server

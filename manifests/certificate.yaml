@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: go-https-server-tls
+  namespace: default
+spec:
+  secretName: https-server-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  dnsNames:
+  - internal-http-server-cert.br0.no
