@@ -2,7 +2,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: BackendTLSPolicy
 metadata:
   name: https-reencrypt
-  namespace: https-reencrypt
+  namespace: default
 spec:
   targetRefs:
     - kind: Service
