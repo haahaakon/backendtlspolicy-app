@@ -4,14 +4,14 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: argo.br0.no
   name: argo-route
-  namespace: argocd
+  namespace: https-reencrypt
 spec:
   hostnames:
-  - argo.br0.no
+  - https.br0.no
   parentRefs:
   - group: gateway.networking.k8s.io
     kind: Gateway
-    name: prod-web-gateway
+    name: test-web-gateway
     namespace: default
   rules:
   - backendRefs:

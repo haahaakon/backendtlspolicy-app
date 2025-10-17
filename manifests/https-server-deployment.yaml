@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: https-server
-  namespace: default
+  namespace: https-reencrypt
   labels:
     app: https-server
 spec:
@@ -55,13 +55,13 @@ spec:
       volumes:
       - name: tls-certs
         secret:
-          secretName: https-server-tls
+          secretName: https-server-go-tls
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: https-server
-  namespace: default
+  namespace: https-reencrypt
   labels:
     app: https-server
 spec:
