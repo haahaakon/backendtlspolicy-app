@@ -9,6 +9,7 @@ spec:
   gatewayClassName: eg
   infrastructure:
     annotations:
+      metallb.io/ip-allocated-from-pool: ipv6-default
       metallb.universe.tf/address-pool: ipv6-default
   listeners:
   - allowedRoutes:
