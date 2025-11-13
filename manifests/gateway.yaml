@@ -6,7 +6,7 @@ metadata:
   name: https-go-web-gateway
   namespace: default
 spec:
-  gatewayClassName: cilium
+  gatewayClassName: eg
   infrastructure:
     annotations:
       metallb.universe.tf/address-pool: ipv6-default
