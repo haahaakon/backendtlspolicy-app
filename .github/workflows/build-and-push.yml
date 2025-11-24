@@ -7,11 +7,6 @@ on:
     paths:
       - 'https_server/**'
       - '.github/workflows/build-and-push.yml'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'https_server/**'
   workflow_dispatch:
 
 env:
